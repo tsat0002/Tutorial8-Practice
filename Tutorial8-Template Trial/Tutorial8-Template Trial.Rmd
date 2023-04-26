@@ -69,3 +69,4 @@ ggtitle("Covid cases (rates)")
 covidrate_vis
 ```
 
+Hello， this is the exercise by Tarsha and Albert.
