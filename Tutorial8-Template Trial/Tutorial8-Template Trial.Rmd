@@ -39,39 +39,39 @@ covid <- read.csv("worldwidecases.csv")
 
 # Introduction
 
-In a famous paper, @BC64 introduced a family of transformations \dots
-
-```{r histogram, fig.cap="Nice histogram", message=FALSE, warning=FALSE}
-qplot(exp(rnorm(200)))
+```{r}
+Covid19<- read.csv("worldwidecases.csv")
 ```
 
-Consider the logNormal data plotted in Figure \ref{fig:histogram}.
+```{r}
+Covid19
+```
 
-$$s^2 = \sum_{i=1}^n (x_i-\bar{x})^2$$
+```{r}
+library(tidyverse)
 
-```{r covid-europe}
-
-covidrate_vis <- covid %>%
- mutate(date= as.Date(dateRep, format = "%d/%m/%y"),
-        cases_rates = ((1000*cases/popData2018) + 0.01),
-        dead_rates = ((1000*deaths/popData2018) +0.01)) %>%
- dplyr::filter(date != "2020-12-31") %>%
-
-#group_by(countriesAndTerritories, date) %>% #summarize_at(vars(cases, deaths), cumsum) %>% 
-  dplyr::filter(countriesAndTerritories %in% c("Italy",
- "Germany",
- "Greece",
- "Switzerland",
- "Sweden",
- "France")) %>%
- ggplot(aes(x = date, y = cases_rates) ) +
- geom_line(color = "#1F9E8E")  +
- facet_wrap(~countriesAndTerritories) +
- theme_bw() +
- ggtitle("Covid cases (rates)")
+covidrate_vis <- Covid19 %>%
+mutate(date= as.Date(dateRep, format = "%d/%m/%y"),
+cases_rates = ((1000*cases/popData2018) + 0.01),
+dead_rates = ((1000*deaths/popData2018) +0.01)) %>%
+dplyr::filter(date != "2020-12-31") %>%
+#group_by(countriesAndTerritories, date) %>%
+#summarize_at(vars(cases, deaths), cumsum) %>%
+dplyr::filter(countriesAndTerritories %in%
+c("Italy",
+"Germany",
+"Greece",
+"Switzerland",
+"Sweden",
+"France")) %>%
+ggplot(aes(x = date, y = cases_rates) ) +
+geom_line(color = "#1F9E8E") +
+facet_wrap(~countriesAndTerritories) +
+theme_bw() +
+ggtitle("Covid cases (rates)")
 covidrate_vis
-
-
-
 ```
+
+
+Hello， this is the exercise by Tarsha and Albert.
 
