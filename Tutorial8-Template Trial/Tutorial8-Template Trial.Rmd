@@ -33,6 +33,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE, cache=TRUE, messages=FALSE, warning=FALSE)
 library(ggplot2)
 library(dplyr)
+covid <- read.csv("worldwidecases.csv")
 ```
 
 
@@ -48,16 +49,16 @@ Consider the logNormal data plotted in Figure \ref{fig:histogram}.
 
 $$s^2 = \sum_{i=1}^n (x_i-\bar{x})^2$$
 
-```{r}
-ncol(covid)
+```{r covid-europe}
+
 covidrate_vis <- covid %>%
  mutate(date= as.Date(dateRep, format = "%d/%m/%y"),
         cases_rates = ((1000*cases/popData2018) + 0.01),
         dead_rates = ((1000*deaths/popData2018) +0.01)) %>%
  dplyr::filter(date != "2020-12-31") %>%
 
-group_by(countriesAndTerritories, date) %>% summarize_at(vars(cases, deaths), cumsum) %>% dplyr::filter(countriesAndTerritories %in% 
-  c("Italy",
+#group_by(countriesAndTerritories, date) %>% #summarize_at(vars(cases, deaths), cumsum) %>% 
+  dplyr::filter(countriesAndTerritories %in% c("Italy",
  "Germany",
  "Greece",
  "Switzerland",
@@ -69,5 +70,8 @@ group_by(countriesAndTerritories, date) %>% summarize_at(vars(cases, deaths), cu
  theme_bw() +
  ggtitle("Covid cases (rates)")
 covidrate_vis
+
+
+
 ```
 
